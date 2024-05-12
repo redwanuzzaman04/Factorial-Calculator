@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Filter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        input[type="file"] {
+            margin-bottom: 20px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 0 10px 10px 0;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Image Filter</h1>
+        <input type="file" id="imageInput" accept="image/*">
+        <br>
+        <img id="uploadedImage" alt="Uploaded Image">
+        <div class="filters">
+            <button onclick="applyFilter('grayscale')">Grayscale</button>
+            <button onclick="applyFilter('sepia')">Sepia</button>
+            <button onclick="applyFilter('invert')">Invert</button>
+            <button onclick="applyFilter('hue-rotate(90deg)')">Hue Rotate</button>
+            <button onclick="applyFilter('brightness(150%)')">Brightness</button>
+            <button onclick="applyFilter('contrast(200%)')">Contrast</button>
+            <button onclick="applyFilter('blur(5px)')">Blur</button>
+            <button onclick="applyFilter('saturate(200%)')">Saturate</button>
+            <button onclick="applyFilter('opacity(50%)')">Opacity</button>
+            <button onclick="applyFilter('drop-shadow(10px 10px 5px rgba(0,0,0,0.5))')">Drop Shadow</button>
+            <button onclick="applyFilter('grayscale(100%) invert(100%)')">Negative</button>
+            <button onclick="applyFilter('brightness(50%) contrast(200%)')">High Contrast</button>
+            <button onclick="applyFilter('sepia(100%) hue-rotate(180deg)')">Retro</button>
+            <button onclick="applyFilter('hue-rotate(180deg) saturate(200%)')">Vibrant</button>
+            <button onclick="applyFilter('blur(10px) brightness(150%)')">Soft Glow</button>
+            <button onclick="applyFilter('opacity(50%) blur(5px)')">Translucent Blur</button>
+            <button onclick="applyFilter('grayscale(100%)')">Black & White</button>
+            <button onclick="resetFilter()">Reset</button>
+        </div>
+    </div>
+
+    <script>
+        function applyFilter(filter) {
+            const uploadedImage = document.getElementById('uploadedImage');
+            uploadedImage.style.filter = filter === 'reset' ? 'none' : filter;
+        }
+
+        function resetFilter() {
+            applyFilter('none');
+        }
+
+        document.getElementById('imageInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const uploadedImage = document.getElementById('uploadedImage');
+                    uploadedImage.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        satisfies
+    </script>
+</body>
+</html>

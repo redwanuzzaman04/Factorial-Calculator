@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quote Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #FF512F, #DD2476);
+            animation: gradientAnimation 10s infinite alternate;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        #quote-container {
+            margin-top: 50px;
+        }
+        #quote-text {
+            font-size: 24px;
+            font-style: italic;
+            color: #fff;
+            margin-bottom: 20px;
+            transition: transform 0.5s ease-in-out;
+        }
+        #quote-author {
+            font-size: 18px;
+            color: #fff;
+        }
+        #generate-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        #generate-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div id="quote-container">
+    <p id="quote-text">Click the button below to generate a random quote.</p>
+    <p id="quote-author"></p>
+    <button id="generate-button">Generate Quote</button>
+</div>
+
+<script>
+    // Array of quotes
+    const quotes = [
+        {
+            text: "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+            author: "Nelson Mandela"
+        },
+        {
+            text: "The way to get started is to quit talking and begin doing.",
+            author: "Walt Disney"
+        },
+        {
+            text: "Life is what happens when you're busy making other plans.",
+            author: "John Lennon"
+        },
+        {
+            text: "The future belongs to those who believe in the beauty of their dreams.",
+            author: "Eleanor Roosevelt"
+        },
+        {
+            text: "It's not whether you get knocked down, it's whether you get up.",
+            author: "Vince Lombardi"
+        }
+    ];
+
+    // Function to generate random quote
+    function generateQuote() {
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        const quote = quotes[randomIndex];
+        const quoteText = document.getElementById("quote-text");
+        quoteText.style.transform = "scale(0)";
+        setTimeout(function () {
+            quoteText.textContent = quote.text;
+            document.getElementById("quote-author").textContent = "- " + quote.author;
+            quoteText.style.transform = "scale(1)";
+        }, 500);
+    }
+
+    // Event listener for button click
+    document.getElementById("generate-button").addEventListener("click", generateQuote);
+
+    // Initial quote generation on page load
+    generateQuote();
+</script>
+
+</body>
+</html>

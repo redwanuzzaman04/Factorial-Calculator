@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock, Paper, Scissors Game</title>
+    <style>
+        #result {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rock, Paper, Scissors Game</h1>
+    <p>Choose your move:</p>
+    <button onclick="playGame('rock')">Rock</button>
+    <button onclick="playGame('paper')">Paper</button>
+    <button onclick="playGame('scissors')">Scissors</button>
+    <p id="result"></p>
+
+    <script>
+        // Initialize variables
+        var playerScore = 0;
+        var computerScore = 0;
+
+        // Function to generate computer's move
+        function computerMove() {
+            var moves = ['rock', 'paper', 'scissors'];
+            var randomIndex = Math.floor(Math.random() * moves.length);
+            return moves[randomIndex];
+        }
+
+        // Function to play the game
+        function playGame(playerMove) {
+            var computerMoveValue = computerMove();
+
+            // Determine the winner
+            var winner;
+            if (playerMove === computerMoveValue) {
+                winner = "It's a tie!";
+            } else if (
+                (playerMove === 'rock' && computerMoveValue === 'scissors') ||
+                (playerMove === 'paper' && computerMoveValue === 'rock') ||
+                (playerMove === 'scissors' && computerMoveValue === 'paper')
+            ) {
+                winner = 'Player wins!';
+                playerScore++;
+            } else {
+                winner = 'Computer wins!';
+                computerScore++;
+            }
+
+            // Display the result and score
+            var resultElement = document.getElementById('result');
+            resultElement.textContent = `${winner} Player: ${playerScore} - Computer: ${computerScore}`;
+        }
+    </script>
+</body>
+</html>

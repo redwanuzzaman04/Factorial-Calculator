@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quote Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000000;
+            color: #fff;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #quote {
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        #author {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Random Quote Generator</h1>
+        <button onclick="generateQuote()">Generate Quote</button>
+        <div id="quote"></div>
+        <div id="author"></div>
+    </div>
+
+    <script>
+        function generateQuote() {
+            const quotes = [
+                { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+                { text: "In the end, it's not the years in your life that count. It's the life in your years.", author: "Abraham Lincoln" },
+                { text: "Success is not final, failure is not fatal: It is the courage to continue that counts.", author: "Winston Churchill" },
+                { text: "The greatest glory in living lies not in never falling, but in rising every time we fall.", author: "Nelson Mandela" },
+                { text: "The only impossible journey is the one you never begin.", author: "Tony Robbins" }
+            ];
+
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            const randomQuote = quotes[randomIndex];
+
+            const quoteElement = document.getElementById('quote');
+            const authorElement = document.getElementById('author');
+
+            quoteElement.textContent = randomQuote.text;
+            authorElement.textContent = `- ${randomQuote.author}`;
+        }
+    </script>
+</body>
+</html>

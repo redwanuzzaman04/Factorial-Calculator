@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colorful Barnsley Fern Fractal</title>
+    <style>
+        body{
+            align-items: center;
+            text-align: center;
+        }
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="800" height="600"></canvas>
+
+    <script>
+        window.onload = function() {
+            // Function to generate Barnsley Fern fractal
+            function generateFern(canvasId, iterations) {
+                var canvas = document.getElementById(canvasId);
+                var ctx = canvas.getContext("2d");
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                var x = 0;
+                var y = 0;
+                var a, b, c, d, e, f;
+                var newX, newY;
+
+                for (var i = 0; i < iterations; i++) {
+                    var rand = Math.random();
+                    if (rand <= 0.01) {
+                        a = 0;
+                        b = 0;
+                        c = 0;
+                        d = 0.16;
+                        e = 0;
+                        f = 0;
+                        ctx.fillStyle = "rgba(0, 255, 0, 1)"; // Bright green
+                    } else if (rand <= 0.86) {
+                        a = 0.85;
+                        b = 0.04;
+                        c = -0.04;
+                        d = 0.85;
+                        e = 0;
+                        f = 1.6;
+                        ctx.fillStyle = "rgba(0, 200, 0, 1)"; // Dark green
+                    } else if (rand <= 0.93) {
+                        a = 0.2;
+                        b = -0.26;
+                        c = 0.23;
+                        d = 0.22;
+                        e = 0;
+                        f = 1.6;
+                        ctx.fillStyle = "rgba(0, 150, 0, 1)"; // Darker green
+                    } else {
+                        a = -0.15;
+                        b = 0.28;
+                        c = 0.26;
+                        d = 0.24;
+                        e = 0;
+                        f = 0.44;
+                        ctx.fillStyle = "rgba(0, 100, 0, 1)"; // Darkest green
+                    }
+
+                    newX = a * x + b * y + e;
+                    newY = c * x + d * y + f;
+
+                    x = newX;
+                    y = newY;
+
+                    var pixelX = Math.floor(canvas.width / 2 + x * canvas.width / 11);
+                    var pixelY = canvas.height - Math.floor(y * canvas.height / 11);
+
+                    ctx.fillRect(pixelX, pixelY, 1, 1);
+                }
+            }
+
+            // Generate colorful Barnsley Fern fractal on canvas
+            generateFern("canvas", 10000);
+        };
+    </script>
+</body>
+</html>

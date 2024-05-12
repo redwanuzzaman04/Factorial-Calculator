@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sound/Video Player with Controls</title>
+  <style>
+    body {
+      background-color: #ecf0f1; /* Set background color */
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333; /* Set heading color */
+    }
+
+    input[type="file"],
+    button,
+    label {
+      margin: 10px;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      color: white;
+      font-weight: bold;
+    }
+
+    input[type="file"] {
+      background-color: #3498db; /* Set file input background color */
+    }
+
+    button {
+      background-color: #2ecc71; /* Set button background color */
+    }
+
+    button:hover {
+      background-color: #27ae60; /* Set button background color on hover */
+    }
+
+    label {
+      background-color: #e74c3c; /* Set label background color */
+    }
+
+    label:hover {
+      background-color: #c0392b; /* Set label background color on hover */
+    }
+
+    #video {
+      width: 100%; /* Set video width to 100% */
+    }
+
+    .volume-container {
+      display: flex;
+      align-items: center;
+      margin: 10px;
+    }
+
+    .volume-label {
+      margin-right: 10px;
+      color: #333;
+    }
+
+    .volume-slider {
+      flex-grow: 1;
+      width: 150px; /* Set width of volume slider */
+    }
+
+    .volume-value {
+      margin-left: 10px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Sound/Video Player with Controls</h1>
+  <label for="mediaFile">Choose a sound or video file:</label>
+  <input type="file" id="mediaFile" accept="audio/*,video/*">
+  <button onclick="playMedia()">Play</button>
+  <button onclick="stopMedia()">Stop</button>
+  <label for="repeatCheckbox">Repeat:</label>
+  <input type="checkbox" id="repeatCheckbox">
+  
+  <div class="volume-container">
+    <label class="volume-label" for="volumeRange">Volume:</label>
+    <input type="range" id="volumeRange" min="0" max="1" step="0.01" value="1" class="volume-slider" onchange="changeVolume(this.value)">
+    <div class="volume-value" id="volumeValue">100%</div>
+  </div>
+
+  <!-- Embedding the media file -->
+  <audio id="audio" controls></audio>
+  <video id="video" controls autoplay></video>
+
+  <script>
+    var mediaType; // To store the type of media (audio or video)
+
+    // Function to play the media
+    function playMedia() {
+      var fileInput = document.getElementById("mediaFile");
+      var audio = document.getElementById("audio");
+      var video = document.getElementById("video");
+      var repeatCheckbox = document.getElementById("repeatCheckbox");
+      var repeat = repeatCheckbox.checked;
+
+      // Check if a file is selected
+      if (fileInput.files.length > 0) {
+        var selectedFile = fileInput.files[0];
+        var fileType = selectedFile.type;
+
+        // Determine the type of media (audio or video)
+        if (fileType.startsWith("audio")) {
+          mediaType = "audio";
+          audio.src = URL.createObjectURL(selectedFile);
+          audio.volume = parseFloat(document.getElementById("volumeRange").value);
+          audio.loop = repeat;
+          audio.play();
+          video.pause(); // Pause video if it's playing
+        } else if (fileType.startsWith("video")) {
+          mediaType = "video";
+          video.src = URL.createObjectURL(selectedFile);
+          video.volume = parseFloat(document.getElementById("volumeRange").value);
+          video.loop = repeat;
+          video.play();
+          audio.pause(); // Pause audio if it's playing
+        }
+      } else {
+        alert("Please choose a sound or video file.");
+      }
+    }
+
+    // Function to stop the media
+    function stopMedia() {
+      if (mediaType === "audio") {
+        var audio = document.getElementById("audio");
+        audio.pause();
+        audio.currentTime = 0;
+      } else if (mediaType === "video") {
+        var video = document.getElementById("video");
+        video.pause();
+        video.currentTime = 0;
+      }
+    }
+
+    // Function to change the volume
+    function changeVolume(volume) {
+      var audio = document.getElementById("audio");
+      var video = document.getElementById("video");
+      var volumeValue = document.getElementById("volumeValue");
+
+      audio.volume = volume;
+      video.volume = volume;
+
+      // Update volume value display
+      var volumePercentage = Math.round(volume * 100);
+      volumeValue.textContent = volumePercentage + "%";
+    }
+  </script>
+</body>
+</html>

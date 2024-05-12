@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <style>
+    canvas {
+      border: 2px solid black;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="800" height="600"></canvas>
+
+  <script>
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    function drawRandomShapes() {
+      // Clear canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Number of shapes to draw
+      var numShapes = 50;
+
+      for (var i = 0; i < numShapes; i++) {
+        // Random position
+        var x = Math.random() * canvas.width;
+        var y = Math.random() * canvas.height;
+
+        // Random size
+        var size = Math.random() * 50 + 10;
+
+        // Random color
+        var color = '#' + Math.floor(Math.random()*16777215).toString(16);
+
+        // Random shape
+        var shape = Math.floor(Math.random() * 3); // 0: circle, 1: square, 2: triangle
+
+        ctx.fillStyle = color;
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2;
+
+        switch (shape) {
+          case 0: // Circle
+            ctx.beginPath();
+            ctx.arc(x, y, size / 2, 0, Math.PI * 2);
+            ctx.fill();
+            break;
+          case 1: // Square
+            ctx.fillRect(x - size / 2, y - size / 2, size, size);
+            break;
+          case 2: // Triangle
+            ctx.beginPath();
+            ctx.moveTo(x, y - size / 2);
+            ctx.lineTo(x - size / 2, y + size / 2);
+            ctx.lineTo(x + size / 2, y + size / 2);
+            ctx.closePath();
+            ctx.fill();
+            break;
+        }
+      }
+    }
+
+    // Draw random shapes initially
+    drawRandomShapes();
+
+    // Redraw when clicking on the canvas
+    canvas.addEventListener("click", drawRandomShapes);
+  </script>
+</body>
+</html>
