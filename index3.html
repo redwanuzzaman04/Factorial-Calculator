@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factorial Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        input[type="number"] {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Factorial Calculator</h1>
+        <input type="number" id="numberInput" placeholder="Enter a number">
+        <button onclick="calculateFactorial()">Calculate Factorial</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateFactorial() {
+            const number = parseInt(document.getElementById('numberInput').value);
+            if (isNaN(number) || number < 0) {
+                document.getElementById('result').textContent = 'Please enter a non-negative integer.';
+                return;
+            }
+
+            let factorial = 1;
+            for (let i = 2; i <= number; i++) {
+                factorial *= i;
+            }
+
+            document.getElementById('result').textContent = `Factorial of ${number} is: ${factorial}`;
+        }
+    </script>
+</body>
+</html>
